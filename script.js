@@ -21,10 +21,14 @@ function calcularFaltas() {
         return `${horas}h ${min}min`;
     }
 
-    function obterCor(minutos) {
-        if (minutos <= 5000) return 'verde';
-        else if (minutos <= 10000) return 'amarelo';
-        else return 'vermelho';
+    function obterCorEMessage(minutos) {
+        if (minutos <= 5000) {
+            return { corClass: 'verde', mensagem: 'Está bom!' };
+        } else if (minutos <= 10000) {
+            return { corClass: 'amarelo', mensagem: 'Cuidado com as faltas!' };
+        } else {
+            return { corClass: 'vermelho', mensagem: 'Pare de faltar imediatamente!' };
+        }
     }
 
     const resultado = document.getElementById('resultado');
@@ -37,11 +41,11 @@ function calcularFaltas() {
     materias.forEach(materia => {
         const faltas = parseInt(document.getElementById(materia).value) || 0;
         const minutos = faltas * 50;
-        const corClass = obterCor(minutos);
+        const { corClass, mensagem } = obterCorEMessage(minutos);
 
         resultado.innerHTML += `
             <p class="${corClass}" id="faltas${materia.charAt(0).toUpperCase() + materia.slice(1)}">
-                ${materia.charAt(0).toUpperCase() + materia.slice(1)}: ${faltas} faltas (${formatarHoras(minutos)})
+                ${materia.charAt(0).toUpperCase() + materia.slice(1)}: ${faltas} faltas (${formatarHoras(minutos)}) - ${mensagem}
             </p>
         `;
     });
@@ -50,6 +54,6 @@ function calcularFaltas() {
         <p>Total de minutos de faltas: ${totalMinutos} (${formatarHoras(totalMinutos)})</p>
     `;
 
-    const corTotal = obterCor(totalMinutos);
+    const { corClass: corTotal, mensagem: mensagemTotal } = obterCorEMessage(totalMinutos);
     resultado.className = corTotal;
 }
