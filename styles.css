@@ -1,136 +1,38 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
+/* Estilos podem ser adicionados conforme necessário */
 .container {
-    flex: 1;
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
+    background-color: #f0f0f0;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    text-align: center;
+.form-background {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
     margin-bottom: 20px;
 }
 
-form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
 .materia {
-    width: 48%;
     margin-bottom: 10px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="number"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
+    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
-}
-
-#resultado {
-    margin-top: 20px;
-}
-
-p {
-    margin-bottom: 10px;
-}
-
-.verde {
-    color: green;
-}
-
-.amarelo {
-    color: orange;
-}
-
-.vermelho {
-    color: red;
-}
-
-.mensagem {
-    font-weight: bold;
+    background-color: #0056b3;
 }
 
 footer {
     text-align: center;
-    padding: 10px;
-    background-color: #f1f1f1;
-}
-.form-background {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid black;
-}
-
-.form-background input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.form-background button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#resultado {
-    background-color: #f0f0f0;
     margin-top: 20px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid black;
-}
-
-footer {
-    margin-top: 20px;
-    text-align: center;
-    font-style: italic;
 }
