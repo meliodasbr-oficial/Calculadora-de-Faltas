@@ -73,15 +73,18 @@ p {
 }
 
 .verde {
-    color: green;
+    background-color: green;
+    color: white;
 }
 
 .amarelo {
-    color: goldenrod;
+    background-color: yellow;
+    color: black;
 }
 
 .vermelho {
-    color: red;
+    background-color: red;
+    color: white;
 }
 
 footer {
