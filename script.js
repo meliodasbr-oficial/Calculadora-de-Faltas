@@ -43,11 +43,12 @@ function calcularFaltas() {
         const minutos = faltas * 50;
         const { corClass, mensagem } = obterCorEMessage(minutos);
 
-        resultado.innerHTML += `
-            <p class="${corClass}" id="faltas${materia.charAt(0).toUpperCase() + materia.slice(1)}">
-                ${materia.charAt(0).toUpperCase() + materia.slice(1)}: ${faltas} faltas (${formatarHoras(minutos)}) - ${mensagem}
-            </p>
-        `;
+        const materiaCapitalized = materia.charAt(0).toUpperCase() + materia.slice(1);
+        const pElement = document.createElement('p');
+        pElement.className = corClass;
+        pElement.textContent = `${materiaCapitalized}: ${faltas} faltas (${formatarHoras(minutos)}) - ${mensagem}`;
+
+        resultado.appendChild(pElement);
     });
 
     resultado.innerHTML += `
