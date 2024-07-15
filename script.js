@@ -4,8 +4,7 @@ function calcularFaltas() {
         'historia', 'sociologia', 'artes', 'educacao', 'inglesa', 'eletiva1', 'eletiva2', 'eletiva3', 'eletiva4'
     ];
 
-    const totalAulas = 200 * 6;
-    let totalMinutosFaltas = 0;
+    const totalAulas = 200 * 6; // Total de aulas no ano letivo
 
     const resultado = document.getElementById('resultado');
     resultado.innerHTML = ''; // Limpa o conteúdo anterior
@@ -13,30 +12,30 @@ function calcularFaltas() {
     materias.forEach(materia => {
         const horas = parseInt(document.getElementById(`${materia}Horas`).value) || 0;
         const minutos = parseInt(document.getElementById(`${materia}Minutos`).value) || 0;
-        const minutosTotais = horas * 60 + minutos;
-        const faltas = Math.ceil(minutosTotais / 50); // Calcula o número de faltas arredondando para cima
+        const totalMinutos = horas * 60 + minutos;
+        const faltas = Math.ceil(totalMinutos / 50); // Cada 50 minutos equivale a uma falta
 
-        totalMinutosFaltas += minutosTotais;
-
-        const materiaCapitalized = materia.charAt(0).toUpperCase() + materia.slice(1);
         const pElement = document.createElement('p');
-        pElement.textContent = `${materiaCapitalized}: ${faltas} faltas (${horas} horas e ${minutos} minutos)`;
+        pElement.textContent = `${materia.charAt(0).toUpperCase() + materia.slice(1)}: ${faltas} faltas`;
 
         resultado.appendChild(pElement);
     });
 
-    const totalFaltas = Math.ceil(totalMinutosFaltas / 50); // Calcula o total de faltas arredondando para cima
+    const totalFaltas = materias.reduce((total, materia) => {
+        const horas = parseInt(document.getElementById(`${materia}Horas`).value) || 0;
+        const minutos = parseInt(document.getElementById(`${materia}Minutos`).value) || 0;
+        const totalMinutos = horas * 60 + minutos;
+        return total + Math.ceil(totalMinutos / 50);
+    }, 0);
 
-    const resultadoTotal = document.createElement('p');
-    resultadoTotal.textContent = `Total de faltas: ${totalFaltas} faltas (${formatarHoras(totalMinutosFaltas)})`;
+    const totalPresencas = totalAulas - totalFaltas;
 
-    resultado.appendChild(resultadoTotal);
+    const totalFaltasElement = document.createElement('p');
+    totalFaltasElement.textContent = `Total de Faltas: ${totalFaltas}`;
 
-    resultado.scrollIntoView({ behavior: 'smooth' });
-}
+    const totalPresencasElement = document.createElement('p');
+    totalPresencasElement.textContent = `Total de Presenças: ${totalPresencas}`;
 
-function formatarHoras(minutos) {
-    const horas = Math.floor(minutos / 60);
-    const min = minutos % 60;
-    return `${horas}h ${min}min`;
+    resultado.appendChild(totalFaltasElement);
+    resultado.appendChild(totalPresencasElement);
 }
