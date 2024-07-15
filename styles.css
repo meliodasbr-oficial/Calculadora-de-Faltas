@@ -84,6 +84,10 @@ p {
     color: red;
 }
 
+.mensagem {
+    font-weight: bold;
+}
+
 footer {
     text-align: center;
     padding: 10px;
