@@ -23,7 +23,6 @@ function calcularFaltas() {
                                          sociologia + artes + educacao + inglesa +
                                          eletiva1 + eletiva2 + eletiva3 + eletiva4);
 
-
     const totalFaltas = matematica + portugues + biologia + fisica + quimica +
                         filosofia + geografia + historia + sociologia + artes +
                         educacao + inglesa + eletiva1 + eletiva2 + eletiva3 + eletiva4;
@@ -37,12 +36,16 @@ function calcularFaltas() {
     }
 
     let corClass = '';
+    let mensagem = '';
     if (totalMinutos <= 5000) {
-        corClass = 'verde'; 
+        corClass = 'verde';
+        mensagem = 'Está bom. Continue assim!';
     } else if (totalMinutos <= 10000) {
         corClass = 'amarelo';
+        mensagem = 'Cuidado com as faltas.';
     } else {
         corClass = 'vermelho';
+        mensagem = 'Pare de faltar imediatamente!';
     }
 
     const resultado = document.getElementById('resultado');
@@ -67,6 +70,7 @@ function calcularFaltas() {
         <p id="faltasEletiva3">Eletiva 3: ${eletiva3} faltas (${formatarHoras(eletiva3 * 50)})</p>
         <p id="faltasEletiva4">Eletiva 4: ${eletiva4} faltas (${formatarHoras(eletiva4 * 50)})</p>
         <p>Total de minutos de faltas: ${totalMinutos} (${formatarHoras(totalMinutos)})</p>
+        <p>${mensagem}</p>
     `;
 
     resultado.className = corClass;
