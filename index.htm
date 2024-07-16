@@ -8409,10 +8409,9 @@ document.getElementById('calcularFaltas').addEventListener('click', function() {
         totalFaltasElement.className = corClasse;
         mensagemElement.className = corClasse;
 
-        // Mostrar o total de horas em faltas com a mensagem
-        const totalHorasFaltasInHours = (totalHorasFaltas / 60).toFixed(2); // Converter minutos para horas e formatar para 2 casas decimais
-        mensagemElement.innerHTML = `Total de horas em faltas: ${totalHorasFaltasInHours} horas - ${mensagem}`;
-    });
+        const totalHorasFaltasFormatted = totalHorasFaltas.toFixed(2); // Formatando para 2 casas decimais
+    mensagemElement.innerHTML = `Total de horas em faltas: ${totalHorasFaltasFormatted} horas - ${mensagem}`;
+});
 
 
     </script>
