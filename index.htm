@@ -8369,23 +8369,32 @@
     "250:00:00": 300
 };
 
-const materias = ['Artes, Biologia, Educação Física, Filosofia, Física, Geografia, História, Inglês, Português, Matemática, Química, Sociologia, Itinerários 1, Itinerários 2, Itinerários 3, Itinerários 4, Itinerários 5, Itinerários 6, Itinerários 7, Itinerários 8, Itinerários 9, Itinerários 10, Itinerário 11, Itinerário 12, Itinerário 13, Itinerário 14 '];
+const materias = ['Artes', 'Biologia', 'Educação Física', 'Filosofia', 'Física', 'Geografia', 'História', 'Inglês', 'Português', 'Matemática', 'Química', 'Sociologia', 'Itinerários 1', 'Itinerários 2', 'Itinerários 3', 'Itinerários 4', 'Itinerários 5', 'Itinerários 6', 'Itinerários 7', 'Itinerários 8', 'Itinerários 9', 'Itinerários 10', 'Itinerário 11', 'Itinerário 12', 'Itinerário 13', 'Itinerário 14'];
 
-document.getElementById('calcularFaltas').addEventListener('click', function() {
+    document.getElementById('calcularFaltas').addEventListener('click', function() {
         const cargaHorarias = document.getElementsByClassName('cargaHoraria');
         let totalFaltas = 0;
-        let totalHorasFaltas = 0;
+        let totalHours = 0;
+        let totalMinutes = 0;
+        let totalSeconds = 0;
 
         for (let i = 0; i < cargaHorarias.length; i++) {
             const cargaHoraria = cargaHorarias[i].value;
             const faltas = faltasPorCargaHoraria[cargaHoraria] || 0;
-
-            // Converter HH:MM:SS para minutos
-            const [hours, minutes, seconds] = cargaHoraria.split(':').map(Number);
-            const totalHours = hours + minutes / 60 + seconds / 3600;
             totalFaltas += faltas;
-            totalHorasFaltas += totalHours;
-}
+
+            const [hours, minutes, seconds] = cargaHoraria.split(':').map(Number);
+            totalHours += hours;
+            totalMinutes += minutes;
+            totalSeconds += seconds;
+        }
+
+        // Ajustar os segundos e minutos para valores válidos
+        totalMinutes += Math.floor(totalSeconds / 60);
+        totalSeconds = totalSeconds % 60;
+
+        totalHours += Math.floor(totalMinutes / 60);
+        totalMinutes = totalMinutes % 60;
 
         const totalFaltasElement = document.getElementById('totalFaltas');
         const mensagemElement = document.getElementById('mensagem');
@@ -8409,9 +8418,9 @@ document.getElementById('calcularFaltas').addEventListener('click', function() {
         totalFaltasElement.className = corClasse;
         mensagemElement.className = corClasse;
 
-        const totalHorasFaltasFormatted = totalHorasFaltas.toFixed(2); // Formatando para 2 casas decimais
-    mensagemElement.innerHTML = `Total de horas em faltas: ${totalHorasFaltasFormatted} horas - ${mensagem}`;
-});
+        const totalHorasFaltasFormatted = `${String(totalHours).padStart(2, '0')}:${String(totalMinutes).padStart(2, '0')}:${String(totalSeconds).padStart(2, '0')}`;
+        mensagemElement.innerHTML = `Total de horas em faltas: ${totalHorasFaltasFormatted} - ${mensagem}`;
+    });
 
 
     </script>
