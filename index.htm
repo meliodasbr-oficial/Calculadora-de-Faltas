@@ -8058,8 +8058,8 @@
             </div>
         </div>
         <button id="calcularFaltas">Calcular Faltas</button>
-        <p id="resultado">Total de faltas: <span id="totalFaltas">0</span></p>
-        <p id="mensagem"></p>
+<p id="resultado">Total de faltas: <span id="totalFaltas">0</span></p>
+<p id="mensagem"></p>
     </div>
     <!-- HTML -->
 
@@ -8373,11 +8373,14 @@
 document.getElementById('calcularFaltas').addEventListener('click', function() {
     const cargaHorarias = document.getElementsByClassName('cargaHoraria');
     let totalFaltas = 0;
+    let totalHorasFaltas = 0;
+    let selecionadas = '';
 
     for (let i = 0; i < cargaHorarias.length; i++) {
-        const cargaHoraria = cargaHorarias[i].value;
-        const faltas = faltasPorCargaHoraria[cargaHoraria];
+        const cargaHoraria = parseInt(cargaHorarias[i].value);
+        const faltas = faltasPorCargaHoraria[cargaHoraria] || 0;
         totalFaltas += faltas;
+        totalHorasFaltas += cargaHoraria;
 
         // Determinar a classe de cor e a mensagem com base na carga horária
         let corClasse = '';
@@ -8395,13 +8398,15 @@ document.getElementById('calcularFaltas').addEventListener('click', function() {
         }
 
         // Adicionar a linha inteira com a classe de cor
-        selecionadas += `<span class="${corClasse}">${materias[i]}: ${cargaHoraria} (${faltas} faltas) - ${mensagem}</span><br>`;
+        selecionadas += `<span class="${corClasse}">${materias[i]}: ${cargaHoraria} horas (${faltas} faltas) - ${mensagem}</span><br>`;
     }
 
     const totalFaltasElement = document.getElementById('totalFaltas');
+    const totalHorasFaltasElement = document.getElementById('totalHorasFaltas');
     const mensagemElement = document.getElementById('mensagem');
 
     totalFaltasElement.textContent = totalFaltas;
+    totalHorasFaltasElement.textContent = totalHorasFaltas;
 
     if (totalFaltas <= 100) {
         totalFaltasElement.className = 'tranquilo';
@@ -8420,6 +8425,7 @@ document.getElementById('calcularFaltas').addEventListener('click', function() {
     // Mostrar a seleção do usuário
     mensagemElement.innerHTML = selecionadas;
 });
+
 
     </script>
     <!-- JavaScript -->
