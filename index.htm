@@ -8369,27 +8369,36 @@
     "250:00:00": 300
 };
 
+const materias = ['Artes, Biologia, Educação Física, Filosofia, Física, Geografia, História, Inglês, Português, Matemática, Química, Sociologia, Itinerários 1, Itinerários 2, Itinerários 3, Itinerários 4, Itinerários 5, Itinerários 6, Itinerários 7, Itinerários 8, Itinerários 9, Itinerários 10, Itinerário 11, Itinerário 12, Itinerário 13, Itinerário 14 '];
 
 document.getElementById('calcularFaltas').addEventListener('click', function() {
-    const cargaHorarias = document.getElementsByClassName('cargaHoraria');
-    let totalFaltas = 0;
-    let totalHorasFaltas = 0;
-    let selecionadas = '';
+        const cargaHorarias = document.getElementsByClassName('cargaHoraria');
+        let totalFaltas = 0;
+        let totalHorasFaltas = 0;
 
-    for (let i = 0; i < cargaHorarias.length; i++) {
-        const cargaHoraria = parseInt(cargaHorarias[i].value);
-        const faltas = faltasPorCargaHoraria[cargaHoraria] || 0;
-        totalFaltas += faltas;
-        totalHorasFaltas += cargaHoraria;
+        for (let i = 0; i < cargaHorarias.length; i++) {
+            const cargaHoraria = cargaHorarias[i].value;
+            const faltas = faltasPorCargaHoraria[cargaHoraria] || 0;
 
-        // Determinar a classe de cor e a mensagem com base na carga horária
+            // Converter HH:MM:SS para minutos
+            const [hours, minutes, seconds] = cargaHoraria.split(':').map(Number);
+            const totalMinutes = hours * 60 + minutes + seconds / 60;
+            totalFaltas += faltas;
+            totalHorasFaltas += totalMinutes;
+        }
+
+        const totalFaltasElement = document.getElementById('totalFaltas');
+        const mensagemElement = document.getElementById('mensagem');
+
+        totalFaltasElement.textContent = totalFaltas;
+
         let corClasse = '';
         let mensagem = '';
 
-        if (faltas <= 100) {
+        if (totalFaltas <= 100) {
             corClasse = 'tranquilo';
             mensagem = 'Está tranquilo!';
-        } else if (faltas <= 200) {
+        } else if (totalFaltas <= 200) {
             corClasse = 'cuidado';
             mensagem = 'Cuidado com as faltas!';
         } else {
@@ -8397,34 +8406,13 @@ document.getElementById('calcularFaltas').addEventListener('click', function() {
             mensagem = 'Pare de faltar!';
         }
 
-        // Adicionar a linha inteira com a classe de cor
-        selecionadas += `<span class="${corClasse}">${materias[i]}: ${cargaHoraria} horas (${faltas} faltas) - ${mensagem}</span><br>`;
-    }
+        totalFaltasElement.className = corClasse;
+        mensagemElement.className = corClasse;
 
-    const totalFaltasElement = document.getElementById('totalFaltas');
-    const totalHorasFaltasElement = document.getElementById('totalHorasFaltas');
-    const mensagemElement = document.getElementById('mensagem');
-
-    totalFaltasElement.textContent = totalFaltas;
-    totalHorasFaltasElement.textContent = totalHorasFaltas;
-
-    if (totalFaltas <= 100) {
-        totalFaltasElement.className = 'tranquilo';
-        mensagemElement.textContent = 'Está tranquilo!';
-        mensagemElement.className = 'tranquilo';
-    } else if (totalFaltas <= 200) {
-        totalFaltasElement.className = 'cuidado';
-        mensagemElement.textContent = 'Cuidado com as faltas!';
-        mensagemElement.className = 'cuidado';
-    } else {
-        totalFaltasElement.className = 'pare';
-        mensagemElement.textContent = 'Pare de faltar!';
-        mensagemElement.className = 'pare';
-    }
-
-    // Mostrar a seleção do usuário
-    mensagemElement.innerHTML = selecionadas;
-});
+        // Mostrar o total de horas em faltas com a mensagem
+        const totalHorasFaltasInHours = (totalHorasFaltas / 60).toFixed(2); // Converter minutos para horas e formatar para 2 casas decimais
+        mensagemElement.innerHTML = `Total de horas em faltas: ${totalHorasFaltasInHours} horas - ${mensagem}`;
+    });
 
 
     </script>
