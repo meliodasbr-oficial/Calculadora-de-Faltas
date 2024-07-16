@@ -8373,8 +8373,6 @@
 document.getElementById('calcularFaltas').addEventListener('click', function() {
     const cargaHorarias = document.getElementsByClassName('cargaHoraria');
     let totalFaltas = 0;
-    let selecionadas = 'Faltas por matéria:<br>';
-    const materias = ["Arte", "Biologia", "Educação Física", "Filosofia", "Física", "Geografia", "História", "Inglês", "Português", "Matemática", "Química", "Sociologia", "Itinerário 1", "Itinerário 2", "Itinerário 3", "Itinerário 4", "Itinerário 5", "Itinerário 6", "Itinerário 7", "Itinerário 8" , "Itinerário 9", "Itinerário 10", "Itinerário 11", "Itinerário 12", "Itinerário 13", "Itinerário 14"];
 
     for (let i = 0; i < cargaHorarias.length; i++) {
         const cargaHoraria = cargaHorarias[i].value;
