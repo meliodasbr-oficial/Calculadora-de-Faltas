@@ -8382,10 +8382,10 @@ document.getElementById('calcularFaltas').addEventListener('click', function() {
 
             // Converter HH:MM:SS para minutos
             const [hours, minutes, seconds] = cargaHoraria.split(':').map(Number);
-            const totalMinutes = hours * 60 + minutes + seconds / 60;
+            const totalHours = hours + minutes / 60 + seconds / 3600;
             totalFaltas += faltas;
-            totalHorasFaltas += totalMinutes;
-        }
+            totalHorasFaltas += totalHours;
+}
 
         const totalFaltasElement = document.getElementById('totalFaltas');
         const mensagemElement = document.getElementById('mensagem');
